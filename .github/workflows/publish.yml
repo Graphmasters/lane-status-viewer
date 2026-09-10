@@ -1,28 +1,36 @@
 name: Publish to npm
 
-# Publishes the package when a GitHub Release is published.
-# Requires an npm automation token in the repo secret NPM_TOKEN.
+# Publishes the package when a GitHub Release is published, using npm Trusted Publishing (OIDC) —
+# no long-lived NPM_TOKEN needed. Provenance is generated automatically.
+#
+# One-time setup on npmjs.com (Package → Settings → Trusted Publisher):
+#   Publisher = GitHub Actions
+#   Organization or user = Graphmasters
+#   Repository           = lane-status-viewer
+#   Workflow filename    = publish.yml
+#   (Environment left blank — this workflow does not use a GitHub environment.)
 on:
   release:
     types: [published]
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # trusted publishing requires a GitHub-hosted runner
     permissions:
       contents: read
-      id-token: write # npm provenance
+      id-token: write # required so the runner can mint the OIDC token npm verifies
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
-          registry-url: https://registry.npmjs.org
-          cache: npm
+          node-version: 24 # bundles npm >= 11.5.1 (the minimum for OIDC publishing)
+          registry-url: https://registry.npmjs.org # still required, even without a token
+      # Guarantee an OIDC-capable npm even if the runner's bundled npm is older.
+      - run: npm install -g npm@latest
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - run: npm publish --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # No token, no --access/--provenance flags: OIDC auth, public access and provenance are
+      # inferred automatically for a public package published from a public repo.
+      - run: npm publish
