@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lane Status Viewer — Encoding &amp; keys</title>
+    <style>
+      :root { color-scheme: light dark; --fg:#1a1a1a; --muted:#666; --bg:#fafafa; --card:#fff; --border:#e5e5e5; --accent:#2f6fd0; }
+      * { box-sizing: border-box; }
+      body { margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--fg); background:var(--bg); line-height:1.55; }
+      main { max-width: 900px; margin: 0 auto; padding: 24px 20px 64px; }
+      nav.top { display:flex; gap:16px; font-size:0.9rem; margin-bottom:20px; }
+      h1 { font-size:1.5rem; margin:0 0 4px; }
+      h2 { font-size:1.15rem; margin:30px 0 6px; }
+      p.lead { color:var(--muted); margin-top:0; }
+      a { color: var(--accent); }
+      code { font: 0.95em ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .card { background: var(--card); border:1px solid var(--border); border-radius:10px; padding: 4px 14px 14px; margin-top: 10px; }
+      .note { color: var(--muted); font-size: 0.9rem; margin: 8px 0 2px; }
+      table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+      th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; vertical-align: middle; }
+      th { background: rgba(0,0,0,0.03); font-size: 0.85rem; }
+      td.char { font: 700 1rem ui-monospace, monospace; text-align: center; width: 3rem; }
+      td.glyph { width: 74px; }
+      td.glyph svg { height: 34px; width: auto; display:block; }
+      td.de { color: var(--muted); }
+      td.notes { font-size: 0.85rem; color: var(--muted); }
+      .diagram-legend { display:flex; gap:6px; flex-wrap:wrap; align-items:center; font-size:0.9rem; color:var(--muted); }
+      .footnote { color: var(--muted); font-size: 0.85rem; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav class="top"><a href="index.html">← Viewer</a><strong>Encoding &amp; keys</strong></nav>
+      <h1>Lane-status encoding</h1>
+      <p class="lead">
+        How the DATEX II MDM <em>Baustellen</em> lane-status strings work, and every key in the
+        standard field and the extension.
+      </p>
+
+      <h2>How the encoding works</h2>
+      <div class="card">
+        <p>
+          A lane-status string describes a road’s <strong>carriageway cross-section</strong>, read
+          <strong>left to right</strong>, one character per element. It is <strong>case-sensitive</strong>.
+          The same alphabet is used by the standard field <code>laneStatusCoded</code> and the richer
+          <code>extendedLaneStatusCoded</code>, so one renderer handles both.
+        </p>
+        <ul>
+          <li><code>2</code> is the <strong>central reservation</strong> (median): it splits the
+            <em>oncoming</em> carriageway on the left (lanes <code>u</code>/<code>i</code>, drawn as
+            <strong>down</strong> arrows) from the <em>direction of travel</em> on the right (lanes
+            <code>o</code>/<code>e</code>, drawn as <strong>up</strong> arrows). <code>1</code> is a
+            temporary single-carriageway divider.</li>
+          <li>Lane cells are boxes: a <strong>green</strong> arrow = open, a <strong>blue</strong>
+            arrow = narrowed, a green double arrow = reversible (<code>w</code>), a red cross =
+            closed (<code>x</code>), a yellow box = hard shoulder present (<code>s</code>).</li>
+          <li><code>l</code>/<code>r</code> are hard-shoulder separation lines; <code>L</code>/<code>R</code>
+            are the heavier carriageway↔special-lane separators.</li>
+          <li>The sign codes (<code>f F g G p P H</code>) render as official StVO traffic signs.</li>
+          <li>Any character outside the alphabet renders as a boxed <code>?</code>.</li>
+        </ul>
+      </div>
+
+      <h2>Standard — <code>laneStatusCoded</code></h2>
+      <p class="note">
+        Documented in the Mobilithek “Datenmodell für Baustellen Version 04-00-00 – 05|2017”
+        (<a href="https://mobilithek.info/help/download" target="_blank" rel="noopener">mobilithek.info/help/download</a>).
+      </p>
+      <table id="standard"><thead><tr><th>Code</th><th>Glyph</th><th>English</th><th>German</th><th>Notes</th></tr></thead><tbody></tbody></table>
+
+      <h2>Extension — <code>extendedLaneStatusCoded</code></h2>
+      <p class="note">
+        There is <strong>no public documentation</strong> for this field; it is in use in Mobilithek
+        publications by several German federal states. The keys below (including <code>L</code>/<code>R</code>)
+        are as observed in those feeds.
+      </p>
+      <table id="extension"><thead><tr><th>Code</th><th>Glyph</th><th>English</th><th>German</th><th>Notes</th></tr></thead><tbody></tbody></table>
+
+      <h2>Unknown</h2>
+      <table id="unknown"><thead><tr><th>Code</th><th>Glyph</th><th>English</th><th>German</th><th>Notes</th></tr></thead><tbody></tbody></table>
+
+      <h2>Icon attribution</h2>
+      <p class="footnote">
+        Sign glyphs are official German StVO traffic signs from Wikimedia Commons, all public domain
+        (PD-VzKat / PD-GermanGov / PD-Vz historisch); see the
+        <a href="index.html#attrib">viewer</a> for the per-sign table. Renderer:
+        <a href="https://github.com/Graphmasters/lane-status-viewer" target="_blank" rel="noopener">lane-status-viewer</a> · MIT.
+      </p>
+    </main>
+
+    <script src="lane-status-viewer.global.js"></script>
+    <script src="docs.js"></script>
+  </body>
+</html>

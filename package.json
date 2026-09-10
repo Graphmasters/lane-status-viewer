@@ -1,0 +1,59 @@
+{
+  "name": "lane-status-viewer",
+  "version": "0.1.0",
+  "description": "Framework-agnostic SVG renderer for DATEX II MDM Baustellen lane-status strings (laneStatusCoded / extendedLaneStatusCoded).",
+  "keywords": [
+    "datex2",
+    "datexii",
+    "laneStatusCoded",
+    "extendedLaneStatusCoded",
+    "mobilithek",
+    "baustellen",
+    "roadworks",
+    "traffic",
+    "svg",
+    "lane"
+  ],
+  "license": "MIT",
+  "author": "Graphmasters",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Graphmasters/lane-status-viewer.git"
+  },
+  "homepage": "https://graphmasters.github.io/lane-status-viewer/",
+  "bugs": "https://github.com/Graphmasters/lane-status-viewer/issues",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/index.global.js",
+  "jsdelivr": "./dist/index.global.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "assemble-demo": "node scripts/assemble-demo.mjs",
+    "demo": "npm run build && node scripts/assemble-demo.mjs && npx --yes serve _site",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8"
+  }
+}

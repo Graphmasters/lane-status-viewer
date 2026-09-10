@@ -1,0 +1,7 @@
+node_modules/
+dist/
+_site/
+demo/index.global.js
+*.log
+.DS_Store
+.idea/
