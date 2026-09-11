@@ -85,6 +85,8 @@ Unrecognised characters render as a boxed `?` rather than being dropped. See the
   several German federal states.
 - Sign icons — official German StVO signs from Wikimedia Commons, all public domain. Full per-sign
   table and licenses in [ATTRIBUTION.md](ATTRIBUTION.md).
+- With thanks to Martin Phillip Ullmann of the [LBV.SH](https://www.lbv-sh.de/) for providing the
+  documentation of the extended encoding.
 
 ## Development
 
