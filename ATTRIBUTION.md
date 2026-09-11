@@ -24,8 +24,12 @@ Overview of German traffic signs: <https://wiki.openstreetmap.org/wiki/DE:Verkeh
 - **`laneStatusCoded`** — Mobilithek, *“Datenmodell für Baustellen Version 04-00-00 – 05|2017”*.
   Available from <https://mobilithek.info/help/download>.
 - **`extendedLaneStatusCoded`** — there is **no public documentation** for this field. It is in use in
-  Mobilithek publications by several German federal states; the alphabet supported here (the sign
-  codes and the `L`/`R` separators) reflects what is observed in those feeds.
+  Mobilithek publications by several German federal states.
+
+## Acknowledgements
+
+With thanks to Martin Phillip Ullmann of the [LBV.SH](https://www.lbv-sh.de/) for providing the
+documentation of the extended encoding.
 
 ## Renderer
 
