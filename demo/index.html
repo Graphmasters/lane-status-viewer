@@ -67,11 +67,7 @@
       ul.legend { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; }
       ul.legend li { display: flex; align-items: center; gap: 10px; }
       ul.legend svg { height: 26px; width: auto; flex: 0 0 auto; }
-      section.refs { margin-top: 32px; font-size: 0.92rem; }
-      section.refs h2 { font-size: 1.05rem; margin-bottom: 6px; }
-      table.attrib { border-collapse: collapse; width: 100%; font-size: 0.85rem; margin-top: 8px; }
-      table.attrib th, table.attrib td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; }
-      .footnote { color: var(--muted); font-size: 0.85rem; }
+      p.foot { margin-top: 32px; color: var(--muted); font-size: 0.9rem; }
     </style>
   </head>
   <body>
@@ -100,33 +96,9 @@
         <ul class="legend" id="legend"></ul>
       </details>
 
-      <section class="refs">
-        <h2>References</h2>
-        <ul>
-          <li>
-            <strong><code>laneStatusCoded</code></strong> — Mobilithek, “Datenmodell für Baustellen
-            Version 04-00-00 – 05|2017”, see
-            <a href="https://mobilithek.info/help/download" target="_blank" rel="noopener">mobilithek.info/help/download</a>.
-          </li>
-          <li>
-            <strong><code>extendedLaneStatusCoded</code></strong> — no public documentation; in use in
-            Mobilithek publications by several German federal states.
-          </li>
-        </ul>
-
-        <h2>Icon attribution</h2>
-        <p class="footnote">
-          The sign glyphs are official German StVO traffic signs from Wikimedia Commons, all in the
-          public domain (PD-VzKat / PD-GermanGov / PD-Vz historisch).
-        </p>
-        <table class="attrib">
-          <thead><tr><th>Code</th><th>Zeichen</th><th>Wikimedia Commons</th><th>License</th></tr></thead>
-          <tbody id="attrib"></tbody>
-        </table>
-        <p class="footnote">
-          Renderer: <a href="https://github.com/Graphmasters/lane-status-viewer" target="_blank" rel="noopener">lane-status-viewer</a> · MIT.
-        </p>
-      </section>
+      <p class="foot">
+        Encoding reference and icon attribution: <a href="docs.html">Encoding &amp; keys →</a>
+      </p>
     </main>
 
     <script src="lane-status-viewer.global.js"></script>
