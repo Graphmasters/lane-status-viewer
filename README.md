@@ -4,11 +4,16 @@ Framework-agnostic, zero-dependency renderer for **DATEX II MDM _Baustellen_ lan
 `laneStatusCoded` and the extended `extendedLaneStatusCoded` — turning a compact code like
 `sluu2oerx` into an SVG carriageway cross-section diagram.
 
-**▶ Live demo:** <https://graphmasters.github.io/lane-status-viewer/>
-· **Encoding & keys:** <https://graphmasters.github.io/lane-status-viewer/docs.html>
+> [!NOTE]
+> **▶ Try the live demo: <https://graphmasters.github.io/lane-status-viewer/>**
+>
+> Paste a lane-status code like `sluu2oerx` and watch it render as a carriageway cross-section
+> diagram.
 
 The demo accepts a `?code=` URL parameter (and optional `?locale=de`), e.g.
 [`?code=sluu2oerx`](https://graphmasters.github.io/lane-status-viewer/?code=sluu2oerx).
+
+The [encoding & keys reference](https://graphmasters.github.io/lane-status-viewer/docs.html) lists every key.
 
 ## Install
 
