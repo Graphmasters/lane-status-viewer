@@ -25,8 +25,26 @@ jobs:
         with:
           node-version: 24 # bundles npm >= 11.5.1 (the minimum for OIDC publishing)
           registry-url: https://registry.npmjs.org # still required, even without a token
-      # Guarantee an OIDC-capable npm even if the runner's bundled npm is older.
-      - run: npm install -g npm@latest
+      # Fail fast if the release tag and package.json disagree on the version. `npm publish` uses
+      # the version in package.json and ignores the tag name, so cutting a release named vX.Y.Z
+      # without first bumping package.json silently republishes the OLD version — which npm then
+      # rejects ("cannot publish over previously published versions"). This guard turns that into a
+      # clear, immediate failure. The tag is read from an env var and never inlined as ${{ }}, so a
+      # crafted tag name cannot inject shell.
+      - name: Verify release tag matches package.json version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          tag_version="${RELEASE_TAG#v}"
+          pkg_version="$(node -p "require('./package.json').version")"
+          if [ "$tag_version" != "$pkg_version" ]; then
+            echo "::error::Release tag '${RELEASE_TAG}' (version ${tag_version}) does not match package.json version ${pkg_version}. Run 'npm version <x.y.z>', merge the bump to the release target, then cut the release."
+            exit 1
+          fi
+          echo "Release tag and package.json agree on version ${pkg_version}."
+      # No `npm install -g npm@latest`: Node 24's bundled npm already satisfies the OIDC minimum
+      # (>= 11.5.1, see the node-version comment above), and a mutable @latest fetch would run
+      # unpinned third-party code on the one job that holds `id-token: write`.
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
