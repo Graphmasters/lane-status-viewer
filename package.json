@@ -1,6 +1,6 @@
 {
   "name": "lane-status-viewer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework-agnostic SVG renderer for DATEX II MDM Baustellen lane-status strings (laneStatusCoded / extendedLaneStatusCoded).",
   "keywords": [
     "datex2",
